@@ -12,7 +12,7 @@ pip install -r requirements.txt
 
 ## Usage
 
-Download the 2 files from [here]() and put them in the same directory as your Brother CSV file. Make sure Python is installed and run the following command:
+Download the 2 files from [here](/release) and put them in the same directory as your Brother CSV file. Make sure Python is installed and run the following command:
 
 ```sh
 python brothero.py <input_file> <output_file>
