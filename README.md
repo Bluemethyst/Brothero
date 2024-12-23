@@ -4,15 +4,11 @@ Brothero is a simple program to convert Brother Billing CSV exports to Xero CSV 
 
 ## Installation
 
-Ensure you have Python installed. Then, install the required dependencies using:
-
-```sh
-pip install -r requirements.txt
-```
+Ensure you have Python installed. Download the 2 files from [here](/release) and put them in the same directory as your Brother CSV file. 
 
 ## Usage
 
-Download the 2 files from [here](/release) and put them in the same directory as your Brother CSV file. Make sure Python is installed and run the following command:
+Make sure Python is installed and run the following command:
 
 ```sh
 python brothero.py <input_file> <output_file>
