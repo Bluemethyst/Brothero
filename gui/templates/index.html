@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Button Page</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                background-color: #f0f0f0;
+            }
+            .button-container {
+                text-align: center;
+            }
+            button {
+                margin: 10px;
+                padding: 10px 20px;
+                font-size: 16px;
+                cursor: pointer;
+            }
+            .drop-zone {
+                border: 2px dashed #ccc;
+                border-radius: 10px;
+                padding: 20px;
+                text-align: center;
+                margin-top: 20px;
+            }
+            .drop-zone.dragover {
+                border-color: #000;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="button-container">
+            <button id="uploadButton">Upload File</button>
+            <input type="file" id="fileInput" style="display: none" />
+            <div id="dropZone" class="drop-zone">Drag and drop files here</div>
+        </div>
+        <div id="output">
+            <h2>Output</h2>
+            <pre id="outputContent"></pre>
+        </div>
+        <script>
+            document
+                .getElementById("uploadButton")
+                .addEventListener("click", function () {
+                    document.getElementById("fileInput").click();
+                });
+
+            document
+                .getElementById("fileInput")
+                .addEventListener("change", function (event) {
+                    const file = event.target.files[0];
+                    if (file) {
+                        readFile(file);
+                    }
+                });
+
+            const dropZone = document.getElementById("dropZone");
+
+            dropZone.addEventListener("dragover", function (event) {
+                event.preventDefault();
+                dropZone.classList.add("dragover");
+            });
+
+            dropZone.addEventListener("dragleave", function (event) {
+                event.preventDefault();
+                dropZone.classList.remove("dragover");
+            });
+
+            dropZone.addEventListener("drop", function (event) {
+                event.preventDefault();
+                dropZone.classList.remove("dragover");
+                const file = event.dataTransfer.files[0];
+                if (file) {
+                    readFile(file);
+                }
+            });
+
+            function readFile(file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const content = e.target.result;
+                    const output = window.pywebview.api
+                        .convert(content)
+                        .then(function (response) {
+                            const outputContent =
+                                document.getElementById("outputContent");
+                            outputContent.textContent = response;
+                        });
+                };
+                reader.readAsText(file);
+            }
+        </script>
+    </body>
+</html>
